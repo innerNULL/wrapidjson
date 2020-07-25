@@ -1,0 +1,6 @@
+[submodule "include/wrapidjson/3rdparty/rapidjson"]
+	path = include/wrapidjson/3rdparty/rapidjson
+	url = https://github.com/Tencent/rapidjson.git
+[submodule "include/wrapidjson/3rdparty/cill"]
+	path = include/wrapidjson/3rdparty/cill
+	url = https://github.com/innerNULL/cill.git
