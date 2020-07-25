@@ -1,0 +1,17 @@
+*.log
+logs/
+*.out
+*.pyc
+.idea
+.project
+.cproject
+.vscode/
+.settings/
+bak/
+.DS_Store
+*.swp
+*.un~
+__pycache__
+demo_server
+build
+
