@@ -33,6 +33,15 @@ namespace wrapidjson {
 namespace handler {
 
 
+inline auto json_obj_init(const bool if_auto_init=true) -> rapidjson::Document {
+  rapidjson::Document json_obj;
+  if (if_auto_init) {
+    json_obj.SetObject();
+  }
+  return json_obj;
+}
+
+
 inline std::string json_obj2string(const rapidjson::Document& target_json_obj) {
   rapidjson::StringBuffer buffer;
   rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
@@ -43,11 +52,11 @@ inline std::string json_obj2string(const rapidjson::Document& target_json_obj) {
 
 
 template <typename NUM_TYPE>
-inline auto json_insert_str_key_num_val(rapidjson::Document& target_json_obj, 
-    const std::string& target_field_name, const NUM_TYPE target_field_val, const bool if_overwrite=true) -> int32_t {
+inline auto json_insert_num(rapidjson::Document& target_json_obj, 
+    const std::string& target_key, const NUM_TYPE target_val, const bool if_overwrite=true) -> int32_t {
   // Check
   if (checker::json_obj_basic_checker(target_json_obj) != 0) { return 1; }
-  if (!if_overwrite && checker::json_obj_field_checker(target_json_obj, target_field_name, "num") != 2) { return 2; }
+  if (!if_overwrite && checker::json_obj_kv_checker(target_json_obj, target_key, "num") != 2) { return 2; }
 
   // Internal vars
   rapidjson::Value key;
@@ -55,13 +64,42 @@ inline auto json_insert_str_key_num_val(rapidjson::Document& target_json_obj,
   rapidjson::Document::AllocatorType& target_allocator = target_json_obj.GetAllocator();
 
   // Process
-  key.SetString(target_field_name.c_str(), target_allocator);
-  val = (NUM_TYPE)target_field_val;
-  if (if_overwrite && checker::json_obj_field_checker(target_json_obj, target_field_name, "num") != 2) {
+  key.SetString(target_key.c_str(), target_allocator);
+  val = (NUM_TYPE)target_val;
+  if (if_overwrite && checker::json_obj_kv_checker(target_json_obj, target_key, "num") != 2) {
     target_json_obj.RemoveMember(key);
   }
   target_json_obj.AddMember(key, val, target_allocator);
 
+  return 0;
+}
+
+
+inline auto json_insert_str(rapidjson::Document& target_json_obj, 
+    const std::string& target_key, const std::string& target_val, const bool if_overwrite=true) -> int32_t {
+  // Check
+  if (checker::json_obj_basic_checker(target_json_obj) != 0) { return 1; }
+  if (!if_overwrite && checker::json_obj_kv_checker(target_json_obj, target_key, "string") != 2) { return 2; }
+
+  // Internal vars
+  rapidjson::Value key;
+  rapidjson::Value val;
+  rapidjson::Document::AllocatorType& target_allocator = target_json_obj.GetAllocator();
+
+  // Process
+  key.SetString(target_key.c_str(), target_allocator);
+  val.SetString(target_val.c_str(), target_allocator);
+  if (if_overwrite && checker::json_obj_kv_checker(target_json_obj, target_key, "num") != 2) {
+    target_json_obj.RemoveMember(key);
+  }
+  target_json_obj.AddMember(key, val, target_allocator);
+
+  return 0;
+}
+
+
+inline auto json_insert_str_array(rapidjson::Document& target_json_obj, 
+    const std::string& target_key, const std::vector<std::string>& target_val, const bool if_overwrite=true) -> int32_t {
   return 0;
 }
 

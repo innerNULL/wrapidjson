@@ -42,15 +42,15 @@ inline auto json_obj_basic_checker(const rapidjson::Document& target_json_obj) -
 }
 
 
-inline auto json_obj_field_checker(const rapidjson::Document& target_json_obj, 
-      const std::string& target_field_name, const std::string& target_field_type) -> int32_t {
+inline auto json_obj_kv_checker(const rapidjson::Document& target_json_obj, 
+      const std::string& target_key, const std::string& target_val_type) -> int32_t {
   if (json_obj_basic_checker(target_json_obj) != 0) { return 1; }
-  if (!target_json_obj.HasMember(target_field_name.c_str())) { return 2; }
-  if (target_field_type == "string" && !target_json_obj[target_field_name.c_str()].IsString()) { return 3; }
-  if (target_field_type == "int" && !target_json_obj[target_field_name.c_str()].IsInt()) { return 4; }
-  if (target_field_type == "double" && !target_json_obj[target_field_name.c_str()].IsDouble()) { return 5; }
-  if (target_field_type == "num" && !target_json_obj[target_field_name.c_str()].IsNumber()) { return 6; }
-  if (target_field_type == "bool" && !target_json_obj[target_field_name.c_str()].IsBool()) { return 7; }
+  if (!target_json_obj.HasMember(target_key.c_str())) { return 2; }
+  if (target_val_type == "string" && !target_json_obj[target_key.c_str()].IsString()) { return 3; }
+  if (target_val_type == "int" && !target_json_obj[target_key.c_str()].IsInt()) { return 4; }
+  if (target_val_type == "double" && !target_json_obj[target_key.c_str()].IsDouble()) { return 5; }
+  if (target_val_type == "num" && !target_json_obj[target_key.c_str()].IsNumber()) { return 6; }
+  if (target_val_type == "bool" && !target_json_obj[target_key.c_str()].IsBool()) { return 7; }
   return 0;
 }
 
