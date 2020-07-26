@@ -1,7 +1,7 @@
 // 2020-07-25
 
-#ifndef WRAPIDJSON_CHECKER_FIELD_CHECKER_H_
-#define WRAPIDJSON_CHECKER_FIELD_CHECKER_H_
+#ifndef WRAPIDJSON_CHECKER_CHECKER_H_
+#define WRAPIDJSON_CHECKER_CHECKER_H_
 
 #include <algorithm>    
 #include <random>      
@@ -30,7 +30,9 @@ namespace checker {
 
 
 /**
- * @brief Basic checking for `rapidjson::Document` object.
+ * @brief 
+ * Basic checking for `rapidjson::Document` object. Usually, the `rapidjson::Document` object 
+ * should be called `SetObject` method first before doing some handling.
  *
  * @param target_json_obj Target checking `rapidjson::Document` object.
  */
@@ -46,6 +48,9 @@ inline auto json_obj_field_checker(const rapidjson::Document& target_json_obj,
   if (!target_json_obj.HasMember(target_field_name.c_str())) { return 2; }
   if (target_field_type == "string" && !target_json_obj[target_field_name.c_str()].IsString()) { return 3; }
   if (target_field_type == "int" && !target_json_obj[target_field_name.c_str()].IsInt()) { return 4; }
+  if (target_field_type == "double" && !target_json_obj[target_field_name.c_str()].IsDouble()) { return 5; }
+  if (target_field_type == "num" && !target_json_obj[target_field_name.c_str()].IsNumber()) { return 6; }
+  if (target_field_type == "bool" && !target_json_obj[target_field_name.c_str()].IsBool()) { return 7; }
   return 0;
 }
 

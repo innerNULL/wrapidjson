@@ -20,3 +20,5 @@ include_directories(${PROJECT_SOURCE_DIR}/include/)
 
 set(CHECKER_DEMO src/demo/checker_demo.cpp)
 add_executable(checker_demo ${CHECKER_DEMO})
+set(HANDLER_DEMO src/demo/handler_demo.cpp)
+add_executable(handler_demo ${HANDLER_DEMO})
