@@ -9,3 +9,5 @@ The processing json should be easy, there are just a few limited case for most u
 * remove an existing key-value pair from a json object.
 * convert a json object to string.
 
+The purpose of this project is, for basical json using case, decrease the developing code lines comparing with using the original rapidjson lib.
+
