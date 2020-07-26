@@ -98,8 +98,57 @@ inline auto json_insert_str(rapidjson::Document& target_json_obj,
 }
 
 
+template <typename VAL_ITEM_TYPE>
+inline auto json_insert_num_array(rapidjson::Document& target_json_obj, 
+    const std::string& target_key, const std::vector<VAL_ITEM_TYPE>& target_val, const bool if_overwrite=true) -> int32_t {
+  // Check
+  if (checker::json_obj_basic_checker(target_json_obj) != 0) { return 1; }
+  if (!if_overwrite && checker::json_obj_kv_checker(target_json_obj, target_key, "array") != 2) { return 2; }
+
+  // Interval vars
+  rapidjson::Value key;
+  rapidjson::Value val(rapidjson::kArrayType);
+  rapidjson::Value element_val;
+  rapidjson::Document::AllocatorType& target_allocator = target_json_obj.GetAllocator();
+
+  // Process
+  key.SetString(target_key.c_str(), target_allocator);
+  for (const VAL_ITEM_TYPE& item : target_val) {
+    element_val = item;
+    val.PushBack(element_val, target_allocator);
+  }
+  if (if_overwrite && checker::json_obj_kv_checker(target_json_obj, target_key, "array") != 2) {
+    target_json_obj.RemoveMember(key);
+  }
+  target_json_obj.AddMember(key, val, target_allocator);
+
+  return 0;
+}
+
+
 inline auto json_insert_str_array(rapidjson::Document& target_json_obj, 
     const std::string& target_key, const std::vector<std::string>& target_val, const bool if_overwrite=true) -> int32_t {
+  // Check
+  if (checker::json_obj_basic_checker(target_json_obj) != 0) { return 1; }
+  if (!if_overwrite && checker::json_obj_kv_checker(target_json_obj, target_key, "array") != 2) { return 2; }
+
+  // Internal vars
+  rapidjson::Value key;
+  rapidjson::Value val(rapidjson::kArrayType);
+  rapidjson::Value element_val;
+  rapidjson::Document::AllocatorType& target_allocator = target_json_obj.GetAllocator();
+
+  // Process
+  key.SetString(target_key.c_str(), target_allocator);
+  for (const std::string& item : target_val) {
+    element_val.SetString(item.c_str(), target_allocator);
+    val.PushBack(element_val, target_allocator);
+  }
+  if (if_overwrite && checker::json_obj_kv_checker(target_json_obj, target_key, "array") != 2) {
+    target_json_obj.RemoveMember(key);
+  }
+  target_json_obj.AddMember(key, val, target_allocator);
+
   return 0;
 }
 
