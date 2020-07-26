@@ -34,13 +34,16 @@ int32_t handler_demo() {
   wrapidjson::handler::json_insert_num<double>(case1_var0, "fake2", -124876.356, true);
   wrapidjson::handler::json_insert_num<double>(case1_var0, "fake2", -12976.36, true);
   wrapidjson::handler::json_insert_num<double>(case1_var0, "fake2", -2976.36, false);
+  std::cout << wrapidjson::handler::json_obj2string(case1_var0) << std::endl;
   wrapidjson::handler::json_insert_str(case1_var0, "fake3", "I'm fake3", false);
   wrapidjson::handler::json_insert_str(case1_var0, "fake4", "I'm fake4", false);
   wrapidjson::handler::json_insert_str(case1_var0, "fake4", "I'm fake4.1", false);
   wrapidjson::handler::json_insert_str(case1_var0, "fake4", "I'm fake4.2", true);
+  std::cout << wrapidjson::handler::json_obj2string(case1_var0) << std::endl;
   wrapidjson::handler::json_insert_str_array(case1_var0, "fake5", {"a", "b", "c"}, true);
   wrapidjson::handler::json_insert_str_array(case1_var0, "fake5", {"a1", "b1", "c1"}, false);
   wrapidjson::handler::json_insert_str_array(case1_var0, "fake5", {"a2", "b2", "c2"}, true);
+  std::cout << wrapidjson::handler::json_obj2string(case1_var0) << std::endl;
   wrapidjson::handler::json_insert_num_array<int32_t>(case1_var0, "fake6", {-1, 0, 1}, false);
   wrapidjson::handler::json_insert_num_array<float>(case1_var0, "fake6", {-1.5, 0.5, 1.5}, false);
   wrapidjson::handler::json_insert_num_array<float>(case1_var0, "fake6", {-1.25, 0.25, 1.25}, true);
