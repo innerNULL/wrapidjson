@@ -41,6 +41,16 @@ inline auto json_obj_basic_checker(const rapidjson::Document& target_json_obj) -
 }
 
 
+
+/**
+ * @brief 
+ * Checking if `rapidjson::Document` object is valid and has a valid certain type 
+ * key-pair at same time. Different error code has different meaning, so very elastic. 
+ *
+ * @param target_json_obj Target checking `rapidjson::Document` object.
+ * @param target_key Target checking key.
+ * @param target_val_type Target checking key's correpondong value type.
+ */
 inline auto json_obj_kv_checker(const rapidjson::Document& target_json_obj, 
       const std::string& target_key, const std::string& target_val_type) -> int32_t {
   if (json_obj_basic_checker(target_json_obj) != 0) { return 1; }

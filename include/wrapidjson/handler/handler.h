@@ -32,6 +32,13 @@
 namespace wrapidjson {
 
 
+/**
+ * @brief
+ * Initialing a `rapidjson::Document` object which could be used without any 
+ * extra handling.
+ *
+ * @param if_auto_init If automatically execute some usual-and-necessary handlings.
+ */
 inline auto json_obj_init(const bool if_auto_init=true) -> rapidjson::Document {
   rapidjson::Document json_obj;
   if (if_auto_init) {
@@ -41,6 +48,13 @@ inline auto json_obj_init(const bool if_auto_init=true) -> rapidjson::Document {
 }
 
 
+/**
+ * @brief
+ * Convert a `rapidjson::Document` object to `std::string`. 
+ *
+ * @param target_json_obj The target `rapidjson::Document` object, which should be 
+ *     called `SetObject()` method.
+ */
 inline std::string json_obj2string(const rapidjson::Document& target_json_obj) {
   rapidjson::StringBuffer buffer;
   rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
@@ -50,6 +64,17 @@ inline std::string json_obj2string(const rapidjson::Document& target_json_obj) {
 }
 
 
+/**
+ * @brief 
+ * Insert a numeric key-value pair to a `rapidjson::Document` object.
+ *
+ * @t_param NUM_TYPE Target inserting key's coppesponding numerical value type.
+ * @param target_json_obj Target `rapidjson::Document` object.
+ * @param target_key Target inserting key's name.
+ * @param target_val Target inserting key's correponding value.
+ * @param if_overwrite If overwrite the key-value pair already existing in `target_json_obj`, 
+ *     which key name is same with the `target_key`.
+ */
 template <typename NUM_TYPE>
 inline auto json_insert_num(rapidjson::Document& target_json_obj, 
     const std::string& target_key, const NUM_TYPE target_val, const bool if_overwrite=true) -> int32_t {
@@ -74,6 +99,11 @@ inline auto json_insert_num(rapidjson::Document& target_json_obj,
 }
 
 
+/**
+ * @brief
+ * Insert a string key-value pair to a `rapidjson::Document` object. 
+ * The parameters is almost same meaning with `json_insert_num`. 
+ */
 inline auto json_insert_str(rapidjson::Document& target_json_obj, 
     const std::string& target_key, const std::string& target_val, const bool if_overwrite=true) -> int32_t {
   // Check
@@ -97,6 +127,11 @@ inline auto json_insert_str(rapidjson::Document& target_json_obj,
 }
 
 
+/**
+ * @brief
+ * Similiar with `json_insert_num`, but this time, the purpose is inserting a 
+ * numerical `std::vector` object. 
+ */
 template <typename VAL_ITEM_TYPE>
 inline auto json_insert_num_array(rapidjson::Document& target_json_obj, 
     const std::string& target_key, const std::vector<VAL_ITEM_TYPE>& target_val, const bool if_overwrite=true) -> int32_t {
@@ -125,6 +160,11 @@ inline auto json_insert_num_array(rapidjson::Document& target_json_obj,
 }
 
 
+/**
+ * @brief
+ * Similiar with `json_insert_str`, but this time, the purpose is inserting a 
+ * `std::vector<std::string>` object. 
+ */
 inline auto json_insert_str_array(rapidjson::Document& target_json_obj, 
     const std::string& target_key, const std::vector<std::string>& target_val, const bool if_overwrite=true) -> int32_t {
   // Check
