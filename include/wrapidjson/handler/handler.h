@@ -30,7 +30,6 @@
 
 
 namespace wrapidjson {
-namespace handler {
 
 
 inline auto json_obj_init(const bool if_auto_init=true) -> rapidjson::Document {
@@ -55,8 +54,8 @@ template <typename NUM_TYPE>
 inline auto json_insert_num(rapidjson::Document& target_json_obj, 
     const std::string& target_key, const NUM_TYPE target_val, const bool if_overwrite=true) -> int32_t {
   // Check
-  if (checker::json_obj_basic_checker(target_json_obj) != 0) { return 1; }
-  if (!if_overwrite && checker::json_obj_kv_checker(target_json_obj, target_key, "num") != 2) { return 2; }
+  if (json_obj_basic_checker(target_json_obj) != 0) { return 1; }
+  if (!if_overwrite && json_obj_kv_checker(target_json_obj, target_key, "num") != 2) { return 2; }
 
   // Internal vars
   rapidjson::Value key;
@@ -66,7 +65,7 @@ inline auto json_insert_num(rapidjson::Document& target_json_obj,
   // Process
   key.SetString(target_key.c_str(), target_allocator);
   val = (NUM_TYPE)target_val;
-  if (if_overwrite && checker::json_obj_kv_checker(target_json_obj, target_key, "num") != 2) {
+  if (if_overwrite && json_obj_kv_checker(target_json_obj, target_key, "num") != 2) {
     target_json_obj.RemoveMember(key);
   }
   target_json_obj.AddMember(key, val, target_allocator);
@@ -78,8 +77,8 @@ inline auto json_insert_num(rapidjson::Document& target_json_obj,
 inline auto json_insert_str(rapidjson::Document& target_json_obj, 
     const std::string& target_key, const std::string& target_val, const bool if_overwrite=true) -> int32_t {
   // Check
-  if (checker::json_obj_basic_checker(target_json_obj) != 0) { return 1; }
-  if (!if_overwrite && checker::json_obj_kv_checker(target_json_obj, target_key, "string") != 2) { return 2; }
+  if (json_obj_basic_checker(target_json_obj) != 0) { return 1; }
+  if (!if_overwrite && json_obj_kv_checker(target_json_obj, target_key, "string") != 2) { return 2; }
 
   // Internal vars
   rapidjson::Value key;
@@ -89,7 +88,7 @@ inline auto json_insert_str(rapidjson::Document& target_json_obj,
   // Process
   key.SetString(target_key.c_str(), target_allocator);
   val.SetString(target_val.c_str(), target_allocator);
-  if (if_overwrite && checker::json_obj_kv_checker(target_json_obj, target_key, "num") != 2) {
+  if (if_overwrite && json_obj_kv_checker(target_json_obj, target_key, "num") != 2) {
     target_json_obj.RemoveMember(key);
   }
   target_json_obj.AddMember(key, val, target_allocator);
@@ -102,8 +101,8 @@ template <typename VAL_ITEM_TYPE>
 inline auto json_insert_num_array(rapidjson::Document& target_json_obj, 
     const std::string& target_key, const std::vector<VAL_ITEM_TYPE>& target_val, const bool if_overwrite=true) -> int32_t {
   // Check
-  if (checker::json_obj_basic_checker(target_json_obj) != 0) { return 1; }
-  if (!if_overwrite && checker::json_obj_kv_checker(target_json_obj, target_key, "array") != 2) { return 2; }
+  if (json_obj_basic_checker(target_json_obj) != 0) { return 1; }
+  if (!if_overwrite && json_obj_kv_checker(target_json_obj, target_key, "array") != 2) { return 2; }
 
   // Interval vars
   rapidjson::Value key;
@@ -117,7 +116,7 @@ inline auto json_insert_num_array(rapidjson::Document& target_json_obj,
     element_val = item;
     val.PushBack(element_val, target_allocator);
   }
-  if (if_overwrite && checker::json_obj_kv_checker(target_json_obj, target_key, "array") != 2) {
+  if (if_overwrite && json_obj_kv_checker(target_json_obj, target_key, "array") != 2) {
     target_json_obj.RemoveMember(key);
   }
   target_json_obj.AddMember(key, val, target_allocator);
@@ -129,8 +128,8 @@ inline auto json_insert_num_array(rapidjson::Document& target_json_obj,
 inline auto json_insert_str_array(rapidjson::Document& target_json_obj, 
     const std::string& target_key, const std::vector<std::string>& target_val, const bool if_overwrite=true) -> int32_t {
   // Check
-  if (checker::json_obj_basic_checker(target_json_obj) != 0) { return 1; }
-  if (!if_overwrite && checker::json_obj_kv_checker(target_json_obj, target_key, "array") != 2) { return 2; }
+  if (json_obj_basic_checker(target_json_obj) != 0) { return 1; }
+  if (!if_overwrite && json_obj_kv_checker(target_json_obj, target_key, "array") != 2) { return 2; }
 
   // Internal vars
   rapidjson::Value key;
@@ -144,7 +143,7 @@ inline auto json_insert_str_array(rapidjson::Document& target_json_obj,
     element_val.SetString(item.c_str(), target_allocator);
     val.PushBack(element_val, target_allocator);
   }
-  if (if_overwrite && checker::json_obj_kv_checker(target_json_obj, target_key, "array") != 2) {
+  if (if_overwrite && json_obj_kv_checker(target_json_obj, target_key, "array") != 2) {
     target_json_obj.RemoveMember(key);
   }
   target_json_obj.AddMember(key, val, target_allocator);
@@ -153,7 +152,6 @@ inline auto json_insert_str_array(rapidjson::Document& target_json_obj,
 }
 
 
-} // namespace handler
 } // namespace wrapidjson
 
 #endif

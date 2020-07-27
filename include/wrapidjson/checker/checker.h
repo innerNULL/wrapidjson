@@ -26,7 +26,6 @@
 
 
 namespace wrapidjson {
-namespace checker {
 
 
 /**
@@ -55,7 +54,6 @@ inline auto json_obj_kv_checker(const rapidjson::Document& target_json_obj,
 }
 
 
-} // namespace checker
 } // namespace wrapidjson
 
 #endif
