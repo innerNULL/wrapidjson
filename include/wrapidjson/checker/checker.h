@@ -60,6 +60,14 @@ inline auto json_obj_kv_checker(const rapidjson::Document& target_json_obj,
   if (target_val_type == "double" && !target_json_obj[target_key.c_str()].IsDouble()) { return 5; }
   if (target_val_type == "num" && !target_json_obj[target_key.c_str()].IsNumber()) { return 6; }
   if (target_val_type == "bool" && !target_json_obj[target_key.c_str()].IsBool()) { return 7; }
+
+  if (target_val_type == "num_array") {
+    if (!target_json_obj[target_key.c_str()].IsArray()) { return 80; }
+    if (!target_json_obj[target_key.c_str()].Empty() 
+        && !target_json_obj[target_key.c_str()].Begin()->IsNumber()) {
+      return 81;
+    }
+  }
   return 0;
 }
 
