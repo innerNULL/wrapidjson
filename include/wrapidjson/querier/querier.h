@@ -32,6 +32,16 @@
 namespace wrapidjson {
 
 
+/**
+ * @brief
+ * Query a numeric vector from a json object and put the results into an predefined 
+ * numeric `std::vector` object.
+ *
+ * @t_param NUM_TYPE The target numerical type.
+ * @param destination The target numeric `std::vector` object to hold json querying output.
+ * @param target_json_obj Target querying json object.
+ * @param target_field Target querying field name from json.
+ */
 template<typename NUM_TYPE>
 int32_t json_num_array2std_vec(std::vector<NUM_TYPE>& destination, 
     const rapidjson::Document& target_json_obj, const std::string target_field) {
