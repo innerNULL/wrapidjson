@@ -20,12 +20,13 @@
 #include "wrapidjson/checker/checker.h"
 #include "wrapidjson/handler/handler.h"
 #include "wrapidjson/querier/querier.h"
+#include "wrapidjson/type_register/type_register.h"
 
 
 int32_t handler_n_querier_demo() {
   std::cout << "=======handler_demo=======" << std::endl;
   std::cout << "-------case0-------" << std::endl;
-  rapidjson::Document case0_var0 = wrapidjson::json_obj_init(true);
+  wrapidjson::Document case0_var0 = wrapidjson::json_obj_init(true);
   std::cout << wrapidjson::json_obj2string(case0_var0) << std::endl;
 
   std::cout << "-------case1-------" << std::endl;
