@@ -18,7 +18,10 @@ include_directories(${PROJECT_SOURCE_DIR}/src/)
 include_directories(${PROJECT_SOURCE_DIR}/include/)
 
 
-set(CHECKER_DEMO src/demo/checker_demo.cpp)
+set(CHECKER_DEMO demo/checker_demo.cpp)
 add_executable(checker_demo ${CHECKER_DEMO})
-set(HANDLER_N_QUERIER_DEMO src/demo/handler_n_querier_demo.cpp)
+set(HANDLER_N_QUERIER_DEMO demo/handler_n_querier_demo.cpp)
 add_executable(handler_n_querier_demo ${HANDLER_N_QUERIER_DEMO})
+set(IO_HELPER_DEMO demo/io_helper_demo.cpp)
+add_executable(io_helper_demo ${IO_HELPER_DEMO})
+
