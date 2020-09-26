@@ -70,7 +70,7 @@ int32_t handler_n_querier_demo() {
   case3_test_json_obj.Parse(case3_test_json_str.c_str());
   for (int32_t i = 0; i < 3; ++i) {
     std::cout << wrapidjson::json_obj2string(case3_test_json_obj) << std::endl;;
-    case3_input_doc_vec.push_back(&case3_test_json_obj);
+    case3_input_doc_vec.emplace_back(&case3_test_json_obj);
   }
   wrapidjson::json_insert_doc_array(case3_target_json_obj, "json_obj_array", case3_input_doc_vec, true);
   std::cout << wrapidjson::json_obj2string(case3_target_json_obj) << std::endl;
