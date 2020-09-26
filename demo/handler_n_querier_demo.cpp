@@ -74,6 +74,17 @@ int32_t handler_n_querier_demo() {
   }
   wrapidjson::json_insert_doc_array(case3_target_json_obj, "json_obj_array", case3_input_doc_vec, true);
   std::cout << wrapidjson::json_obj2string(case3_target_json_obj) << std::endl;
+
+  std::cout << "-------case4-------" << std::endl;
+  std::string case4_test_json_str = "{\"a\":[0.2, 0.3, 0.4]}";
+  wrapidjson::Document case4_source_json_obj = wrapidjson::json_obj_init(true);
+  wrapidjson::Document case4_target_json_obj;
+
+  case4_source_json_obj.Parse(case4_test_json_str.c_str());
+
+  std::cout << wrapidjson::json_obj2string(case4_target_json_obj) << std::endl;
+  wrapidjson::doc_assign(case4_target_json_obj, case4_source_json_obj);
+  std::cout << wrapidjson::json_obj2string(case4_target_json_obj) << std::endl;
   return 0;
 }
 

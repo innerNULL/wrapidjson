@@ -50,6 +50,26 @@ inline auto json_obj_init(const bool if_auto_init=true) -> rapidjson::Document {
 
 /**
  * @brief
+ * Assign an source json document(source_json_obj) to another json document(target_json_obj).
+ *
+ * @param target_json_obj The target json object hope to assign to.
+ * @param source_json_obj The source json object which content will be assigned to `target_json_obj`.
+ */
+inline int32_t doc_assign(rapidjson::Document& target_json_obj, const rapidjson::Document& source_json_obj) {
+  target_json_obj.SetObject();
+  rapidjson::Document::AllocatorType& target_allocator = target_json_obj.GetAllocator();
+
+  for (auto iter = source_json_obj.MemberBegin(); iter != source_json_obj.MemberEnd(); ++iter) {
+    rapidjson::Value key = rapidjson::Value(iter->name, target_allocator);
+    rapidjson::Value val = rapidjson::Value(iter->value, target_allocator);
+    target_json_obj.AddMember(key, val, target_allocator);
+  }
+  return 0;
+}
+
+
+/**
+ * @brief
  * Convert a `rapidjson::Document` object to `std::string`. 
  *
  * @param target_json_obj The target `rapidjson::Document` object, which should be 
