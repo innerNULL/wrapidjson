@@ -192,6 +192,55 @@ inline auto json_insert_str_array(rapidjson::Document& target_json_obj,
 }
 
 
+/**
+ * @brief
+ * Similiar with `json_insert_str_array`, insert a vector of json object(Document) into a json object(Document).
+ * 
+ * @note
+ * The reason let `target_val` as `const std::vector<rapidjson::Document*>&` but not 
+ * `const std::vector<rapidjson::Document>&` is, 
+ *    1. Let each element in `std::vector` be a `rapidjson::Document` full copy is memory ineffective。
+ *    2. It's wierd, insert a `rapidjson::Document` element into a `std::vector<rapidjson::Document>` 
+ *       always retures error, for example following codes:
+ *       ```
+ *       std::vector<rapidjson::Document> json_obj_vec;
+ *       rapidjson::Document test_json_obj = wrapidjson::json_obj_init(true);
+ *       for (int32_t i = 0; i < 3; ++i) { json_obj_vec.emplace_back(test_json_obj); }
+ *       ```
+ *       but it is ok for 
+ *       ```
+ *       std::vector<rapidjson::Document*> json_obj_vec;
+ *       rapidjson::Document test_json_obj = wrapidjson::json_obj_init(true);
+ *       for (int32_t i = 0; i < 3; ++i) { json_obj_vec.emplace_back(&test_json_obj); }
+ *       ```
+ */
+inline int32_t json_insert_doc_array(rapidjson::Document& target_json_obj, 
+    const std::string& target_key, const std::vector<rapidjson::Document*>& target_val, const bool if_overwrite=true) {
+  // Check
+  if (json_obj_basic_checker(target_json_obj) != 0) { return 1; }
+  if (!if_overwrite && json_obj_kv_checker(target_json_obj, target_key, "array") != 2) { return 2; }
+
+  // Internal vars
+  rapidjson::Value key;
+  rapidjson::Value val(rapidjson::kArrayType);
+  rapidjson::Value element_val;
+  rapidjson::Document::AllocatorType& target_allocator = target_json_obj.GetAllocator();
+
+  // Process
+  key.SetString(target_key.c_str(), target_allocator);
+  for (const rapidjson::Document* item : target_val) {
+    element_val = rapidjson::Value(*item, target_allocator);
+    val.PushBack(element_val, target_allocator);
+  }
+  if (if_overwrite && json_obj_kv_checker(target_json_obj, target_key, "array") != 2) {
+    target_json_obj.RemoveMember(key);
+  }
+  target_json_obj.AddMember(key, val, target_allocator);
+
+  return 0;
+}
+
+
 } // namespace wrapidjson
 
 #endif

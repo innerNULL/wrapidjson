@@ -60,6 +60,20 @@ int32_t handler_n_querier_demo() {
   for (int32_t i = 0; i < case2_var1.size(); ++i) {
     std::cout << case2_var0[i] << ", " << case2_var1[i] << std::endl;
   }
+
+  std::cout << "-------case3-------" << std::endl;
+  wrapidjson::Document case3_target_json_obj = wrapidjson::json_obj_init(true);
+  wrapidjson::Document case3_test_json_obj = wrapidjson::json_obj_init(true);
+  std::string case3_test_json_str = "{\"a\":[0.2, 0.3, 0.4]}";
+  std::vector<wrapidjson::Document*> case3_input_doc_vec;
+
+  case3_test_json_obj.Parse(case3_test_json_str.c_str());
+  for (int32_t i = 0; i < 3; ++i) {
+    std::cout << wrapidjson::json_obj2string(case3_test_json_obj) << std::endl;;
+    case3_input_doc_vec.push_back(&case3_test_json_obj);
+  }
+  wrapidjson::json_insert_doc_array(case3_target_json_obj, "json_obj_array", case3_input_doc_vec, true);
+  std::cout << wrapidjson::json_obj2string(case3_target_json_obj) << std::endl;
   return 0;
 }
 
