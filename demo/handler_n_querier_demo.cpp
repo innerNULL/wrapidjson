@@ -83,15 +83,24 @@ int32_t handler_n_querier_demo() {
   case4_source_json_obj.Parse(case4_test_json_str.c_str());
 
   std::cout << wrapidjson::json_obj2string(case4_target_json_obj) << std::endl;
-  wrapidjson::doc_assign(case4_target_json_obj, case4_source_json_obj);
+  wrapidjson::doc_assign(&case4_target_json_obj, &case4_source_json_obj);
   std::cout << wrapidjson::json_obj2string(case4_target_json_obj) << std::endl;
 
   std::vector<wrapidjson::Document> case4_doc_vec;
   case4_doc_vec.resize(3);
   for (auto& x : case4_doc_vec) {
-    wrapidjson::doc_assign(x, case4_source_json_obj);
+    wrapidjson::doc_assign(&x, &case4_source_json_obj);
     std::cout << "address: " << &x << ", value: " << wrapidjson::json_obj2string(x) << std::endl;
   }
+
+  std::vector<wrapidjson::Document*> case4_doc_pointer_vec;
+  case4_doc_pointer_vec.resize(5);
+  for (auto pt : case4_doc_pointer_vec) {
+    //wrapidjson::doc_assign(pt, &case4_source_json_obj);
+    //std::cout << "pointer: " << case4_doc_pointer_vec[i] 
+    //    << ", value: " << wrapidjson::json_obj2string(*(case4_doc_pointer_vec[i])) << std::endl;
+  }
+
   return 0;
 }
 
