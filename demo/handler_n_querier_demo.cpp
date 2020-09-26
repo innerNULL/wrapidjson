@@ -85,6 +85,13 @@ int32_t handler_n_querier_demo() {
   std::cout << wrapidjson::json_obj2string(case4_target_json_obj) << std::endl;
   wrapidjson::doc_assign(case4_target_json_obj, case4_source_json_obj);
   std::cout << wrapidjson::json_obj2string(case4_target_json_obj) << std::endl;
+
+  std::vector<wrapidjson::Document> case4_doc_vec;
+  case4_doc_vec.resize(3);
+  for (auto& x : case4_doc_vec) {
+    wrapidjson::doc_assign(x, case4_source_json_obj);
+    std::cout << "address: " << &x << ", value: " << wrapidjson::json_obj2string(x) << std::endl;
+  }
   return 0;
 }
 
