@@ -50,6 +50,17 @@ inline auto json_obj_init(const bool if_auto_init=true) -> rapidjson::Document {
 
 /**
  * @brief
+ * Initialize a json object with as json string.
+ */
+inline auto json_obj_init(const std::string json_str) -> rapidjson::Document {
+  rapidjson::Document json_obj = json_obj_init(true);
+  json_obj.Parse(json_str.c_str());
+  return json_obj;
+}
+
+
+/**
+ * @brief
  * Assign an source json document(source_json_obj) to another json document(target_json_obj).
  *
  * @param target_json_obj The target json object hope to assign to.
