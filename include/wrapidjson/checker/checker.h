@@ -22,7 +22,7 @@
 #include <time.h>
 #include <sys/timeb.h>
 
-#include "../3rdparty/rapidjson/include/rapidjson/document.h"
+#include <rapidjson/document.h>
 
 
 namespace wrapidjson {

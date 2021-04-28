@@ -22,10 +22,10 @@
 #include <time.h>
 #include <sys/timeb.h>
 
-#include "../3rdparty/rapidjson/include/rapidjson/document.h"
-#include "../3rdparty/rapidjson/include/rapidjson/filereadstream.h"
-#include "../3rdparty/rapidjson/include/rapidjson/stringbuffer.h"
-#include "../3rdparty/rapidjson/include/rapidjson/writer.h"
+#include <rapidjson/document.h>
+#include <rapidjson/filereadstream.h>
+#include <rapidjson/stringbuffer.h>
+#include <rapidjson/writer.h>
 
 
 namespace wrapidjson {
